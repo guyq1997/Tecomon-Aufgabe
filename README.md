@@ -1,4 +1,4 @@
-## 📦 Projektstruktur (Vorschlag)
+## 📦 Projektstruktur
 
 ```txt
 /project-root
@@ -7,11 +7,12 @@
 │   ├── components/
 │   └── utils/
 ├── backend/          → Node.js Backend (Express oder Fastify)
-│   ├── routes/
-│   ├── controllers/
-│   ├── models/
-│   ├── services/     → Wetterdaten-Logik inkl. Caching
-│   └── cache/        → optional: In-Memory oder File-basierter Cache
+├   ├─src/   
+│     ├── routes/
+│     ├── controllers/
+│     ├── models/
+│     ├── services/     → Wetterdaten-Logik inkl. Caching
+│     └── cache/        → optional: In-Memory oder File-basierter Cache
 └── README.md
 ```
 
