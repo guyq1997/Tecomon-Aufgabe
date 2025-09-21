@@ -1,0 +1,24 @@
+graph TD
+  U[User Browser] --> FE[Next.js Frontend]
+  FE -->|HTTP (REST)| BE[Express Backend]
+  BE --> ROUTES[Routes]
+  ROUTES --> CTRL[Controllers]
+  CTRL --> SRV[Weather Service]
+  CTRL --> DB[(MongoDB)]
+  SRV --> CACHE[In-memory TTL Cache]
+  SRV --> OMGeo[Open-Meteo Geocoding API]
+  SRV --> OMFore[Open-Meteo Forecast API]
+
+  subgraph Backend
+    BE --> ROUTES
+    ROUTES --> CTRL
+    CTRL --> SRV
+    SRV --> CACHE
+    CTRL --> DB
+  end
+
+  subgraph Docker Compose
+    FE
+    BE
+    DB
+  end

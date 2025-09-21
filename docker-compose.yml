@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: tecomon-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: tecomon-backend
+    restart: unless-stopped
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/widgets
+      - PORT=5050
+    depends_on:
+      - mongo
+    ports:
+      - "${BACKEND_PORT:-5050}:5050"
+
+  frontend:
+    build: ./frontend
+    container_name: tecomon-frontend
+    restart: unless-stopped
+    environment:
+      - NEXT_PUBLIC_API_BASE=/api
+      - BACKEND_INTERNAL_PORT=5050
+      - PORT=3000
+    depends_on:
+      - backend
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+
+  mongo-express:
+    image: mongo-express:1.0.2-20
+    container_name: tecomon-mongo-express
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    ports:
+      - "${MONGO_EXPRESS_PORT:-8081}:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_BASICAUTH: "false"
+
+volumes:
+  mongo_data:
+
+
