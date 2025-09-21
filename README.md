@@ -4,10 +4,8 @@
 /project-root
 ├── frontend/         → Next.js Frontend (Dashboard)
 │   ├── pages/
-│   ├── components/
-│   └── utils/
 ├── backend/          → Node.js Backend (Express oder Fastify)
-├   ├─src/   
+│   ├─src/   
 │     ├── routes/
 │     ├── controllers/
 │     ├── models/
